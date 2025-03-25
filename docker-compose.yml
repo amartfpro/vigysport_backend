@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_USER: amart
+      POSTGRES_PASSWORD: amartroot
+      POSTGRES_DB: vigysport
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "3001:3001"
+    depends_on:
+      - users
+      - products
+      - orders
+    environment:
+      DATABASE_URL: postgres://amart:amartroot@postgres:5432/vigysport
+    networks:
+      - backend_network
+
+  orders:
+    build: ./microservices/orders
+    ports:
+      - "3002:3002"
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://amart:amartroot@postgres:5432/vigysport
+    networks:
+      - backend_network
+
+  products:
+    build: ./microservices/products
+    ports:
+      - "3003:3003"
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://amart:amartroot@postgres:5432/vigysport
+    networks:
+      - backend_network
+
+  users:
+    build: ./microservices/users
+    ports:
+      - "3004:3004"
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://amart:amartroot@postgres:5432/vigysport
+    networks:
+      - backend_network
+
+volumes:
+  postgres_data:
+
+
+networks:
+  backend_network:
+    driver: bridge
