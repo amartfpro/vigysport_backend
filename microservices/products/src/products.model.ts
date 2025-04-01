@@ -24,7 +24,7 @@ export class Product extends Model<Product> {
   @Column({
     type: DataType.STRING(50),
     allowNull: false,
-    unique: true, // Asegura que no haya SKUs duplicados
+    unique: true,
   })
   sku: string;
 

@@ -5,11 +5,21 @@ import { ProductsController } from './products.controller';
 import { Product } from './products.model';
 import { AuthModule } from './auth/auth.module';
 import { AuthService } from './auth/auth.service';
+import { PassportModule } from '@nestjs/passport';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [SequelizeModule.forFeature([Product]), AuthModule],
+  imports: [
+    PassportModule,
+    JwtModule.register({
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '1h' },
+    }),
+    SequelizeModule.forFeature([Product]),
+    AuthModule,
+  ],
   controllers: [ProductsController],
-  providers: [ProductsService, AuthService],
-  exports: [ProductsService, AuthService],
+  providers: [JwtModule, ProductsService, AuthService],
+  exports: [JwtModule, ProductsService, AuthService],
 })
 export class ProductsModule {}
