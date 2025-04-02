@@ -13,17 +13,28 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - backend_network
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U amart -d vigysport" ]
+      interval: 5s
+      retries: 5
+      timeout: 3s
 
   api-gateway:
     build: ./api-gateway
     ports:
       - "3001:3001"
     depends_on:
-      - users
-      - products
-      - orders
+      postgres:
+        condition: service_healthy
     environment:
       DATABASE_URL: postgres://amart:amartroot@postgres:5432/vigysport
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: amart
+      DB_PASSWORD: amartroot
+      DB_NAME: vigysport
     networks:
       - backend_network
 
@@ -32,9 +43,13 @@ services:
     ports:
       - "3002:3002"
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     environment:
-      DATABASE_URL: postgres://amart:amartroot@postgres:5432/vigysport
+      DB_HOST: 5432
+      DB_USER: amart
+      DB_PASSWORD: amartroot
+      DB_NAME: vigysport
     networks:
       - backend_network
 
@@ -43,9 +58,13 @@ services:
     ports:
       - "3003:3003"
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     environment:
-      DATABASE_URL: postgres://amart:amartroot@postgres:5432/vigysport
+      DB_HOST: 5432
+      DB_USER: amart
+      DB_PASSWORD: amartroot
+      DB_NAME: vigysport
     networks:
       - backend_network
 
@@ -54,9 +73,14 @@ services:
     ports:
       - "3004:3004"
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     environment:
-      DATABASE_URL: postgres://amart:amartroot@postgres:5432/vigysport
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: amart
+      DB_PASSWORD: amartroot
+      DB_NAME: vigysport
     networks:
       - backend_network
 

@@ -5,6 +5,7 @@ import { validateConfig } from './config.validation';
 import { AuthMiddleware } from './middleware/auth.middleware';
 import helmet from 'helmet';
 import { Request, Response, NextFunction } from 'express';
+import { Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
   try {
@@ -36,15 +37,21 @@ async function bootstrap() {
       credentials: true,
     });
 
+    app.connectMicroservice({
+      transport: Transport.TCP,
+      options: { host: '0.0.0.0', port: 3001 },
+    });
+
+    await app.startAllMicroservices();
     await app.listen(port);
-    console.log(`Users microservice is running on port ${port}`);
+    console.log(`Api-Gateway microservice is running on port ${port}`);
   } catch (error) {
-    console.error('Error en la inicialización del microservicio Users:', error);
+    console.error('Error en la inicialización del Api-Gateway: ', error);
     process.exit(1);
   }
 }
 
 bootstrap().catch((error) => {
-  console.error('Error starting Users microservice:', error);
+  console.error('Error starting Api-Gateway: ', error);
   process.exit(1);
 });

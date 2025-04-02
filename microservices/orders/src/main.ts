@@ -25,14 +25,17 @@ async function bootstrap() {
     });
 
     await app.listen(port);
-    console.log(`Users microservice is running on port ${port}`);
+    console.log(`Orders microservice is running on port ${port}`);
   } catch (error) {
-    console.error('Error en la inicialización del microservicio Users:', error);
+    console.error(
+      'Error en la inicialización del microservicio Orders:',
+      error,
+    );
     process.exit(1);
   }
 }
 
 bootstrap().catch((error) => {
-  console.error('Error starting Users microservice:', error);
+  console.error('Error starting Orders microservice:', error);
   process.exit(1);
 });
