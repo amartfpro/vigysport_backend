@@ -5,7 +5,6 @@ import { validateConfig } from './config.validation';
 import { AuthMiddleware } from './middleware/auth.middleware';
 import helmet from 'helmet';
 import { Request, Response, NextFunction } from 'express';
-import { Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
   try {
@@ -37,12 +36,8 @@ async function bootstrap() {
       credentials: true,
     });
 
-    app.connectMicroservice({
-      transport: Transport.TCP,
-      options: { host: '0.0.0.0', port: 3001 },
-    });
+    // Hacer require de sequelize config
 
-    await app.startAllMicroservices();
     await app.listen(port);
     console.log(`Api-Gateway microservice is running on port ${port}`);
   } catch (error) {
