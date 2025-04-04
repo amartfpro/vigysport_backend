@@ -1,7 +1,8 @@
 import {
   IsBoolean,
-  IsDate,
+  IsDateString,
   IsEmail,
+  IsEnum,
   IsNotEmpty,
   IsOptional,
   IsString,
@@ -25,15 +26,15 @@ export class CreateUserDto {
   password: string;
 
   @IsOptional()
-  @IsString()
-  role?: 'admin' | 'user'; // Se establece por defecto en 'user' en el modelo
+  @IsEnum(['admin', 'user'])
+  role?: 'admin' | 'user';
 
   @IsOptional()
   @IsBoolean()
   isActive?: boolean;
 
   @IsOptional()
-  @IsDate()
+  @IsDateString()
   birthDate?: Date;
 
   @IsOptional()
@@ -49,7 +50,7 @@ export class CreateUserDto {
   profilePicture?: string;
 
   @IsOptional()
-  @IsDate()
+  @IsDateString()
   lastLogin?: Date;
 }
 
@@ -69,4 +70,32 @@ export class UpdateUserDto {
   @IsOptional()
   @IsString()
   password?: string;
+
+  @IsOptional()
+  @IsEnum(['admin', 'user'])
+  role?: 'admin' | 'user';
+
+  @IsOptional()
+  @IsBoolean()
+  isActive?: boolean;
+
+  @IsOptional()
+  @IsDateString()
+  birthDate?: Date;
+
+  @IsOptional()
+  @IsBoolean()
+  isEmailVerified?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  isSubscribedToNewsletter?: boolean;
+
+  @IsOptional()
+  @IsString()
+  profilePicture?: string;
+
+  @IsOptional()
+  @IsDateString()
+  lastLogin?: Date;
 }

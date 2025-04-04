@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import * as dotenv from 'dotenv';
 import { AppModule } from './app.module';
 import { validateConfig } from './config.validation';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   try {
@@ -15,6 +16,9 @@ async function bootstrap() {
     validateConfig(process.env);
 
     const app = await NestFactory.create(AppModule);
+
+    app.useGlobalPipes(new ValidationPipe());
+
     const port = process.env.PORT ? Number(process.env.PORT) : 3003;
 
     app.enableCors({

@@ -1,6 +1,4 @@
 import { Sequelize } from 'sequelize-typescript';
-import { User } from '../users/src/users.model';
-import { Product } from '../products/src/products.model';
 import { Order } from './src/orders.model';
 
 export const sequelize = new Sequelize({
@@ -10,7 +8,7 @@ export const sequelize = new Sequelize({
   username: process.env.DB_USER || 'amart',
   password: process.env.DB_PASSWORD || 'amartroot',
   database: process.env.DB_NAME || 'vigysport',
-  models: [User, Product, Order],
+  models: [Order],
   logging: false,
 });
 

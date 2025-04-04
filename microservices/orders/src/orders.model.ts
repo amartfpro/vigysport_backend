@@ -3,12 +3,28 @@ import {
   Column,
   Model,
   DataType,
-  ForeignKey,
+  // ForeignKey,
 } from 'sequelize-typescript';
-import { Product } from '../../products/src/products.model';
+import { Optional } from 'sequelize';
+// import { Product } from '../../products/src/products.model';
+
+interface OrderAttributes {
+  id: string;
+  userId: string;
+  productId: string;
+  quantity: number;
+  totalPrice: number;
+  status: string;
+  created_at?: Date;
+  updated_at?: Date;
+}
+type OrderCreationAttributes = Optional<
+  OrderAttributes,
+  'id' | 'created_at' | 'updated_at'
+>;
 
 @Table({ tableName: 'orders', timestamps: true })
-export class Order extends Model<Order> {
+export class Order extends Model<OrderAttributes, OrderCreationAttributes> {
   @Column({
     type: DataType.UUID,
     defaultValue: DataType.UUIDV4,
@@ -22,7 +38,7 @@ export class Order extends Model<Order> {
   })
   userId: string;
 
-  @ForeignKey(() => Product)
+  // @ForeignKey(() => Product)
   @Column({
     type: DataType.UUID,
     allowNull: false,

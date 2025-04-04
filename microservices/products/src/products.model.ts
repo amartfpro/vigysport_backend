@@ -1,7 +1,26 @@
 import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import { Optional } from 'sequelize';
+
+interface ProductAttributes {
+  id: string;
+  name: string;
+  description?: string;
+  sku: string;
+  price: number;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+type ProductCreationAttributes = Optional<
+  ProductAttributes,
+  'id' | 'description' | 'createdAt' | 'updatedAt'
+>;
 
 @Table({ tableName: 'products', timestamps: true }) // timestamps activa createdAt y updatedAt
-export class Product extends Model<Product> {
+export class Product extends Model<
+  ProductAttributes,
+  ProductCreationAttributes
+> {
   @Column({
     type: DataType.UUID,
     defaultValue: DataType.UUIDV4,
