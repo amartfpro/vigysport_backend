@@ -38,6 +38,7 @@ type UserCreationAttributes = Optional<
   timestamps: true,
 })
 export class User extends Model<UserAttributes, UserCreationAttributes> {
+  // Sin username
   @Column({
     type: DataType.STRING,
     allowNull: false,

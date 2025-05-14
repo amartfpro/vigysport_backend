@@ -1,8 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import * as dotenv from 'dotenv';
-import { AppModule } from './app.module';
 import { validateConfig } from './config.validation';
 import { ValidationPipe } from '@nestjs/common';
+import { UsersModule } from './users.module';
 
 async function bootstrap() {
   try {
@@ -15,7 +15,7 @@ async function bootstrap() {
 
     validateConfig(process.env);
 
-    const app = await NestFactory.create(AppModule);
+    const app = await NestFactory.create(UsersModule);
 
     app.useGlobalPipes(new ValidationPipe());
 

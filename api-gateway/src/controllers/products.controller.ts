@@ -20,7 +20,7 @@ export class ProductsProxyController {
   @Get()
   async getAll(@Res() res: Response) {
     const response = await firstValueFrom(
-      this.http.get('http://products:3002/products'),
+      this.http.get('http://products:3003/products'),
     );
     return res.status(response.status).send(response.data);
   }
@@ -28,7 +28,7 @@ export class ProductsProxyController {
   @Get(':id')
   async getById(@Param('id') id: string, @Res() res: Response) {
     const response = await firstValueFrom(
-      this.http.get(`http://products:3002/products/${id}`),
+      this.http.get(`http://products:3003/products/${id}`),
     );
     return res.status(response.status).send(response.data);
   }
@@ -36,7 +36,7 @@ export class ProductsProxyController {
   @Post()
   async create(@Body() body: any, @Req() req: Request, @Res() res: Response) {
     const response = await firstValueFrom(
-      this.http.post('http://products:3002/products', body, {
+      this.http.post('http://products:3003/products', body, {
         headers: { Authorization: req.headers.authorization },
       }),
     );
@@ -51,7 +51,7 @@ export class ProductsProxyController {
     @Res() res: Response,
   ) {
     const response = await firstValueFrom(
-      this.http.put(`http://products:3002/products/${id}`, body, {
+      this.http.put(`http://products:3003/products/${id}`, body, {
         headers: { Authorization: req.headers.authorization },
       }),
     );
@@ -65,7 +65,7 @@ export class ProductsProxyController {
     @Res() res: Response,
   ) {
     const response = await firstValueFrom(
-      this.http.delete(`http://products:3002/products/${id}`, {
+      this.http.delete(`http://products:3003/products/${id}`, {
         headers: { Authorization: req.headers.authorization },
       }),
     );

@@ -13,14 +13,14 @@ import { HttpService } from '@nestjs/axios';
 import { Request, Response } from 'express';
 import { firstValueFrom } from 'rxjs';
 
-@Controller('products')
-export class ProductsProxyController {
+@Controller('orders')
+export class OrdersProxyController {
   constructor(private readonly http: HttpService) {}
 
   @Get()
   async getAll(@Res() res: Response) {
     const response = await firstValueFrom(
-      this.http.get('http://products:3002/products'),
+      this.http.get('http://orders:3002/orders'),
     );
     return res.status(response.status).send(response.data);
   }
@@ -28,7 +28,7 @@ export class ProductsProxyController {
   @Get(':id')
   async getById(@Param('id') id: string, @Res() res: Response) {
     const response = await firstValueFrom(
-      this.http.get(`http://products:3002/products/${id}`),
+      this.http.get(`http://orders:3002/orders/${id}`),
     );
     return res.status(response.status).send(response.data);
   }
@@ -36,7 +36,7 @@ export class ProductsProxyController {
   @Post()
   async create(@Body() body: any, @Req() req: Request, @Res() res: Response) {
     const response = await firstValueFrom(
-      this.http.post('http://products:3002/products', body, {
+      this.http.post('http://orders:3002/orders', body, {
         headers: { Authorization: req.headers.authorization },
       }),
     );
@@ -51,7 +51,7 @@ export class ProductsProxyController {
     @Res() res: Response,
   ) {
     const response = await firstValueFrom(
-      this.http.put(`http://products:3002/products/${id}`, body, {
+      this.http.put(`http://orders:3002/orders/${id}`, body, {
         headers: { Authorization: req.headers.authorization },
       }),
     );
@@ -65,7 +65,7 @@ export class ProductsProxyController {
     @Res() res: Response,
   ) {
     const response = await firstValueFrom(
-      this.http.delete(`http://products:3002/products/${id}`, {
+      this.http.delete(`http://orders:3002/orders/${id}`, {
         headers: { Authorization: req.headers.authorization },
       }),
     );

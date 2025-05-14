@@ -6,15 +6,19 @@ import {
   Delete,
   Body,
   Param,
-  UseGuards,
+  UseGuards
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto, UpdateUserDto } from './dto/users.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { AuthService } from './auth/auth.service';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly authService: AuthService,
+  ) {}
 
   @Get()
   @UseGuards(AuthGuard('jwt'))
@@ -29,8 +33,9 @@ export class UsersController {
   }
 
   @Post()
-  createUser(@Body() userData: CreateUserDto) {
-    return this.usersService.create(userData);
+  async createUser(@Body() dto: CreateUserDto) {
+    dto.password = await this.authService.hashPassword(dto.password);
+    return this.usersService.create(dto);
   }
 
   @Put(':id')

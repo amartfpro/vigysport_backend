@@ -46,7 +46,8 @@ services:
       postgres:
         condition: service_healthy
     environment:
-      DB_HOST: 5432
+      DB_HOST: postgres
+      DB_PORT: 5432
       DB_USER: amart
       DB_PASSWORD: amartroot
       DB_NAME: vigysport
@@ -61,7 +62,8 @@ services:
       postgres:
         condition: service_healthy
     environment:
-      DB_HOST: 5432
+      DB_HOST: postgres
+      DB_PORT: 5432
       DB_USER: amart
       DB_PASSWORD: amartroot
       DB_NAME: vigysport

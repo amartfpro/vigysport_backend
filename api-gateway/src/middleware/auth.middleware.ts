@@ -9,6 +9,20 @@ import * as jwt from 'jsonwebtoken';
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
+    const publicRoutes = [
+      { method: 'GET', path: /^\/products/ },
+      { method: 'POST', path: /^\/users$/ },
+      { method: 'POST', path: /^\/auth\/login$/ },
+    ];
+
+    const isPublic = publicRoutes.some(
+      (route) => req.method === route.method && route.path.test(req.path),
+    );
+
+    if (isPublic) {
+      return next();
+    }
+
     const token = req.headers.authorization?.split(' ')[1];
 
     if (!token) {

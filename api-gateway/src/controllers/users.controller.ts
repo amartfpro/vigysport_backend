@@ -20,7 +20,7 @@ export class UsersProxyController {
   @Get()
   async getAll(@Req() req: Request, @Res() res: Response) {
     const response = await firstValueFrom(
-      this.http.get('http://users:3001/users', {
+      this.http.get('http://users:3004/users', {
         headers: { Authorization: req.headers.authorization },
       }),
     );
@@ -34,7 +34,7 @@ export class UsersProxyController {
     @Res() res: Response,
   ) {
     const response = await firstValueFrom(
-      this.http.get(`http://users:3001/users/${id}`, {
+      this.http.get(`http://users:3004/users/${id}`, {
         headers: { Authorization: req.headers.authorization },
       }),
     );
@@ -44,7 +44,7 @@ export class UsersProxyController {
   @Post()
   async create(@Body() body: any, @Res() res: Response) {
     const response = await firstValueFrom(
-      this.http.post('http://users:3001/users', body),
+      this.http.post('http://users:3004/users', body),
     );
     return res.status(response.status).send(response.data);
   }
@@ -57,7 +57,7 @@ export class UsersProxyController {
     @Res() res: Response,
   ) {
     const response = await firstValueFrom(
-      this.http.put(`http://users:3001/users/${id}`, body, {
+      this.http.put(`http://users:3004/users/${id}`, body, {
         headers: { Authorization: req.headers.authorization },
       }),
     );
@@ -71,7 +71,7 @@ export class UsersProxyController {
     @Res() res: Response,
   ) {
     const response = await firstValueFrom(
-      this.http.delete(`http://users:3001/users/${id}`, {
+      this.http.delete(`http://users:3004/users/${id}`, {
         headers: { Authorization: req.headers.authorization },
       }),
     );
