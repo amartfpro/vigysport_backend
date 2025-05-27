@@ -1,6 +1,4 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript'; // HasMany
-// import { Order } from './order.model';
-import { Optional } from 'sequelize';
+import { Column, DataType, Model, Table } from 'sequelize-typescript';
 
 interface UserAttributes {
   id: string;
@@ -19,96 +17,84 @@ interface UserAttributes {
   updatedAt?: Date;
 }
 
-type UserCreationAttributes = Optional<
-  UserAttributes,
-  | 'id'
-  | 'role'
-  | 'isActive'
-  | 'lastLogin'
-  | 'isEmailVerified'
-  | 'profilePicture'
-  | 'isSubscribedToNewsletter'
-  | 'birthDate'
-  | 'createdAt'
-  | 'updatedAt'
->;
+interface UserCreationAttributes extends Partial<UserAttributes> {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+}
 
 @Table({
   tableName: 'users',
   timestamps: true,
 })
 export class User extends Model<UserAttributes, UserCreationAttributes> {
-  // Sin username
   @Column({
     type: DataType.STRING,
     allowNull: false,
     unique: true,
   })
-  email: string;
+  declare email: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  password: string;
+  declare password: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  firstName: string;
+  declare firstName: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  lastName: string;
+  declare lastName: string;
 
   @Column({
     type: DataType.ENUM('admin', 'user'),
     allowNull: false,
     defaultValue: 'user',
   })
-  role: 'admin' | 'user';
+  declare role: 'admin' | 'user';
 
   @Column({
     type: DataType.BOOLEAN,
     allowNull: false,
     defaultValue: true,
   })
-  isActive: boolean;
+  declare isActive: boolean;
 
   @Column({
     type: DataType.DATE,
     allowNull: true,
   })
-  lastLogin: Date;
+  declare lastLogin: Date;
 
-  // Información de verificación
   @Column({
     type: DataType.BOOLEAN,
     defaultValue: false,
   })
-  isEmailVerified: boolean;
+  declare isEmailVerified: boolean;
 
   @Column({
     type: DataType.STRING,
     allowNull: true,
   })
-  profilePicture: string;
+  declare profilePicture: string;
 
   @Column({
     type: DataType.BOOLEAN,
     defaultValue: false,
   })
-  isSubscribedToNewsletter: boolean;
+  declare isSubscribedToNewsletter: boolean;
 
   @Column({
     type: DataType.DATE,
     allowNull: true,
   })
-  birthDate: Date;
-
-  // @HasMany(() => Order)
-  // orders: Order[];
+  declare birthDate: Date;
 }

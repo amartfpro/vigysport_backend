@@ -1,4 +1,4 @@
-import { Controller, Post, Body, UnauthorizedException, BadRequestException } from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto } from '../dto/login.dto';
 import { CreateUserDto } from 'src/dto/users.dto';
@@ -19,9 +19,13 @@ export class AuthController {
 
   @Post('register')
   async register(@Body() createUserDto: CreateUserDto) {
-    const hashedPassword = await this.authService.hashPassword(createUserDto.password);
-    const user = await this.usersService.create({ ...createUserDto, password: hashedPassword });
+    const hashedPassword = await this.authService.hashPassword(
+      createUserDto.password,
+    );
+    const user = await this.usersService.create({
+      ...createUserDto,
+      password: hashedPassword,
+    });
     return { message: 'Usuario registrado correctamente', user };
   }
-
 }

@@ -6,7 +6,7 @@ import {
   Delete,
   Body,
   Param,
-  UseGuards
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto, UpdateUserDto } from './dto/users.dto';

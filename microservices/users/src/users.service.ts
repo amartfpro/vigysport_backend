@@ -2,7 +2,6 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from './users.model';
 import { CreateUserDto, UpdateUserDto } from './dto/users.dto';
-import { CreationAttributes } from 'sequelize';
 
 @Injectable()
 export class UsersService {
@@ -21,7 +20,7 @@ export class UsersService {
   }
 
   async create(userData: CreateUserDto): Promise<User> {
-    return await this.userModel.create(userData as CreationAttributes<User>);
+    return await this.userModel.create(userData);
   }
 
   async update(id: number, userData: UpdateUserDto): Promise<User> {
