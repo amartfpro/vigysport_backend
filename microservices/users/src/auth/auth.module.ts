@@ -6,8 +6,8 @@ import * as dotenv from 'dotenv';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { User } from 'src/users.model';
-import { UsersModule } from '../users.module';
+import { User } from 'src/models/users.model';
+import { UsersModule } from '../modules/users.module';
 
 dotenv.config();
 @Module({

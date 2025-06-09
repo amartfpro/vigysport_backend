@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { Product } from './products.model';
-import { CreateProductDto, UpdateProductDto } from './dto/products.dto';
+import { Product } from '../models/products.model';
+import { CreateProductDto, UpdateProductDto } from '../dto/products.dto';
 import { CreationAttributes } from 'sequelize';
 
 @Injectable()

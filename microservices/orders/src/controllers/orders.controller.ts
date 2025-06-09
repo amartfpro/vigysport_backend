@@ -8,8 +8,8 @@ import {
   Body,
   UseGuards,
 } from '@nestjs/common';
-import { OrdersService } from './orders.service';
-import { CreateOrderDto, UpdateOrderDto } from './dto/orders.dto';
+import { OrdersService } from '../services/orders.service';
+import { CreateOrderDto, UpdateOrderDto } from '../dto/orders.dto';
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('orders')

@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import * as dotenv from 'dotenv';
 import { validateConfig } from './config.validation';
 import { ValidationPipe } from '@nestjs/common';
-import { UsersModule } from './users.module';
+import { UsersModule } from './modules/users.module';
 
 async function bootstrap() {
   try {
