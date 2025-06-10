@@ -26,6 +26,21 @@ class EnvironmentVariables {
   USERS_SERVICE_URL: string;
 
   @IsString()
+  DB_HOST: string;
+
+  @IsNumber()
+  DB_PORT: number;
+
+  @IsString()
+  DB_USER: string;
+
+  @IsString()
+  DB_PASSWORD: string;
+
+  @IsString()
+  DB_NAME: string;
+
+  @IsString()
   JWT_SECRET: string;
 }
 
