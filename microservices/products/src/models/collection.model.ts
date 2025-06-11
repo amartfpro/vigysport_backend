@@ -1,12 +1,15 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
-
-export interface CollectionAttributes {
+import { Table, Column, Model, DataType, HasMany } from 'sequelize-typescript';
+import { Product } from './product.model';
+import { CollectionDiscount } from './collection-discount.model';
+interface CollectionAttributes {
   id: string;
   name: string;
   description?: string;
-  releaseDate: Date;
-  endDate?: Date;
-  isActive?: boolean;
+  startDate: Date;
+  endDate: Date;
+  isActive: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 @Table({ tableName: 'collections', timestamps: true })
@@ -34,11 +37,11 @@ export class Collection extends Model<CollectionAttributes> {
     type: DataType.DATE,
     allowNull: false,
   })
-  releaseDate: Date;
+  startDate: Date;
 
   @Column({
     type: DataType.DATE,
-    allowNull: true,
+    allowNull: false,
   })
   endDate: Date;
 
@@ -47,4 +50,22 @@ export class Collection extends Model<CollectionAttributes> {
     defaultValue: true,
   })
   isActive: boolean;
+
+  @HasMany(() => Product)
+  products: Product[];
+
+  @HasMany(() => CollectionDiscount)
+  collectionDiscounts: CollectionDiscount[];
+
+  @Column({
+    type: DataType.DATE,
+    defaultValue: DataType.NOW,
+  })
+  declare createdAt: Date;
+
+  @Column({
+    type: DataType.DATE,
+    defaultValue: DataType.NOW,
+  })
+  declare updatedAt: Date;
 }
