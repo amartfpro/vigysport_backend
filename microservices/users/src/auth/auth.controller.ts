@@ -6,6 +6,7 @@ import { UsersService } from '../services/users.service';
 
 @Controller('auth')
 export class AuthController {
+  jwtService: any;
   constructor(
     private readonly authService: AuthService,
     private readonly usersService: UsersService,
@@ -27,5 +28,15 @@ export class AuthController {
       password: hashedPassword,
     });
     return { message: 'Usuario registrado correctamente', user };
+  }
+
+  @Post('validate')
+  async validateToken(@Body() body: { token: string }) {
+    try {
+      const decoded = await this.jwtService.verify(body.token); // Verifica el token JWT
+      return { valid: true, decoded };
+    } catch (error) {
+      return { valid: false, error: error.message };
+    }
   }
 }

@@ -1,8 +1,11 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { Product } from '../models/product.model';
-import { ProductsController } from '../controllers/products.controller';
-import { ProductsService } from '../services/products.service';
+import { ProductsModule } from './products.module';
+import { CategoriesModule } from './categories.module';
+import { CollectionsModule } from './collections.module';
+import { ProductDiscountModule } from './product-discounts.module';
+import { CollectionDiscountModule } from './collection-discounts.module';
+import { ProductImagesModule } from './product-images.module';
 
 @Module({
   imports: [
@@ -13,13 +16,18 @@ import { ProductsService } from '../services/products.service';
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      models: [Product],
+      models: [],
       autoLoadModels: true,
       synchronize: true,
     }),
-    SequelizeModule.forFeature([Product]),
+    ProductsModule,
+    CategoriesModule,
+    CollectionsModule,
+    ProductDiscountModule,
+    CollectionDiscountModule,
+    ProductImagesModule,
   ],
-  controllers: [ProductsController],
-  providers: [ProductsService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
