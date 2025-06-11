@@ -1,31 +1,15 @@
 import {
+  Table,
   Column,
+  Model,
   DataType,
   ForeignKey,
-  Model,
-  Table,
 } from 'sequelize-typescript';
 import { Product } from './product.model';
-
-interface ProductDiscountAttributes {
-  id: string;
-  productId: string;
-  discount: number;
-  discountType: 'percentage' | 'fixed';
-  validFrom: Date;
-  validUntil: Date;
-  isActive: boolean;
-}
+import { Discount } from './discount.model';
 
 @Table({ tableName: 'product_discounts', timestamps: true })
-export class ProductDiscount extends Model<ProductDiscountAttributes> {
-  @Column({
-    type: DataType.UUID,
-    defaultValue: DataType.UUIDV4,
-    primaryKey: true,
-  })
-  declare id: string;
-
+export class ProductDiscount extends Model {
   @ForeignKey(() => Product)
   @Column({
     type: DataType.UUID,
@@ -33,33 +17,10 @@ export class ProductDiscount extends Model<ProductDiscountAttributes> {
   })
   productId: string;
 
+  @ForeignKey(() => Discount)
   @Column({
-    type: DataType.DECIMAL(10, 2),
+    type: DataType.UUID,
     allowNull: false,
   })
-  discount: number;
-
-  @Column({
-    type: DataType.ENUM('percentage', 'fixed'),
-    allowNull: false,
-  })
-  discountType: string;
-
-  @Column({
-    type: DataType.DATE,
-    allowNull: false,
-  })
-  validFrom: Date;
-
-  @Column({
-    type: DataType.DATE,
-    allowNull: false,
-  })
-  validUntil: Date;
-
-  @Column({
-    type: DataType.BOOLEAN,
-    defaultValue: true,
-  })
-  isActive: boolean;
+  discountId: string;
 }

@@ -1,25 +1,29 @@
 import {
   IsNotEmpty,
+  IsString,
   IsNumber,
   IsEnum,
-  IsOptional,
-  IsString,
   IsDateString,
+  IsOptional,
   IsBoolean,
 } from 'class-validator';
 
-export class CreateProductDiscountDto {
+export class CreateDiscountDto {
   @IsNotEmpty()
   @IsString()
-  productId: string;
+  code: string;
 
   @IsNotEmpty()
   @IsNumber()
-  discount: number;
+  amount: number;
+
+  @IsNotEmpty()
+  @IsEnum(['product', 'collection', 'code', 'seasonal'])
+  discountType: 'product' | 'collection' | 'code' | 'seasonal';
 
   @IsNotEmpty()
   @IsEnum(['percentage', 'fixed'])
-  discountType: string;
+  discountValueType: 'percentage' | 'fixed';
 
   @IsNotEmpty()
   @IsDateString()
@@ -34,14 +38,22 @@ export class CreateProductDiscountDto {
   isActive?: boolean;
 }
 
-export class UpdateProductDiscountDto {
+export class UpdateDiscountDto {
+  @IsOptional()
+  @IsString()
+  code?: string;
+
   @IsOptional()
   @IsNumber()
-  discount?: number;
+  amount?: number;
+
+  @IsOptional()
+  @IsEnum(['product', 'collection', 'code', 'seasonal'])
+  discountType?: 'product' | 'collection' | 'code' | 'seasonal';
 
   @IsOptional()
   @IsEnum(['percentage', 'fixed'])
-  discountType?: 'percentage' | 'fixed';
+  discountValueType?: 'percentage' | 'fixed';
 
   @IsOptional()
   @IsDateString()

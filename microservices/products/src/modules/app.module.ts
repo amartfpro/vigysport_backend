@@ -3,8 +3,6 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { ProductsModule } from './products.module';
 import { CategoriesModule } from './categories.module';
 import { CollectionsModule } from './collections.module';
-import { ProductDiscountModule } from './product-discounts.module';
-import { CollectionDiscountModule } from './collection-discounts.module';
 import { ProductImagesModule } from './product-images.module';
 
 @Module({
@@ -23,8 +21,6 @@ import { ProductImagesModule } from './product-images.module';
     ProductsModule,
     CategoriesModule,
     CollectionsModule,
-    ProductDiscountModule,
-    CollectionDiscountModule,
     ProductImagesModule,
   ],
   controllers: [],
