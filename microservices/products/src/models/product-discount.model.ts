@@ -8,6 +8,7 @@ import {
 import { Product } from './product.model';
 
 interface ProductDiscountAttributes {
+  id: string;
   productId: string;
   discount: number;
   discountType: 'percentage' | 'fixed';
@@ -18,6 +19,13 @@ interface ProductDiscountAttributes {
 
 @Table({ tableName: 'product_discounts', timestamps: true })
 export class ProductDiscount extends Model<ProductDiscountAttributes> {
+  @Column({
+    type: DataType.UUID,
+    defaultValue: DataType.UUIDV4,
+    primaryKey: true,
+  })
+  declare id: string;
+
   @ForeignKey(() => Product)
   @Column({
     type: DataType.UUID,
