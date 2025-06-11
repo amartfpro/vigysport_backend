@@ -5,10 +5,10 @@ import {
   DataType,
   ForeignKey,
   HasMany,
+  BelongsTo,
 } from 'sequelize-typescript';
 import { ProductImage } from './product-image.model';
 import { ProductDiscount } from './product-discount.model';
-import { CollectionDiscount } from './collection-discount.model';
 import { Category } from './category.model';
 import { Collection } from './collection.model';
 
@@ -99,8 +99,8 @@ export class Product extends Model<ProductAttributes> {
   @HasMany(() => ProductDiscount)
   productDiscounts: ProductDiscount[];
 
-  @HasMany(() => CollectionDiscount)
-  collectionDiscounts: CollectionDiscount[];
+  @BelongsTo(() => Collection)
+  collection: Collection;
 
   @Column({
     type: DataType.DATE,

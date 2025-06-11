@@ -4,6 +4,14 @@ import { ProductsModule } from './products.module';
 import { CategoriesModule } from './categories.module';
 import { CollectionsModule } from './collections.module';
 import { ProductImagesModule } from './product-images.module';
+import { DiscountModule } from './discount.module';
+import { Product } from 'src/models/product.model';
+import { Category } from 'src/models/category.model';
+import { Collection } from 'src/models/collection.model';
+import { ProductImage } from 'src/models/product-image.model';
+import { CollectionDiscount } from 'src/models/collection-discount.model';
+import { ProductDiscount } from 'src/models/product-discount.model';
+import { Discount } from 'src/models/discount.model';
 
 @Module({
   imports: [
@@ -14,7 +22,15 @@ import { ProductImagesModule } from './product-images.module';
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      models: [],
+      models: [
+        Product,
+        Category,
+        Collection,
+        ProductImage,
+        CollectionDiscount,
+        ProductDiscount,
+        Discount,
+      ],
       autoLoadModels: true,
       synchronize: true,
     }),
@@ -22,6 +38,7 @@ import { ProductImagesModule } from './product-images.module';
     CategoriesModule,
     CollectionsModule,
     ProductImagesModule,
+    DiscountModule,
   ],
   controllers: [],
   providers: [],

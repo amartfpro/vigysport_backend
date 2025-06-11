@@ -4,6 +4,7 @@ import {
   Model,
   DataType,
   ForeignKey,
+  BelongsTo,
 } from 'sequelize-typescript';
 import { Collection } from './collection.model';
 import { Discount } from './discount.model';
@@ -23,4 +24,10 @@ export class CollectionDiscount extends Model {
     allowNull: false,
   })
   discountId: string;
+
+  @BelongsTo(() => Collection)
+  collection: Collection;
+
+  @BelongsTo(() => Discount)
+  discount: Discount;
 }

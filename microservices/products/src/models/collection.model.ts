@@ -1,6 +1,7 @@
 import { Table, Column, Model, DataType, HasMany } from 'sequelize-typescript';
 import { Product } from './product.model';
 import { CollectionDiscount } from './collection-discount.model';
+
 interface CollectionAttributes {
   id: string;
   name: string;
