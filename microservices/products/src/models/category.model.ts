@@ -1,4 +1,11 @@
-import { Table, Column, Model, DataType, HasMany } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  Model,
+  DataType,
+  HasMany,
+  ForeignKey,
+} from 'sequelize-typescript';
 import { Product } from './product.model';
 
 interface CategoryAttributes {
@@ -19,6 +26,13 @@ export class Category extends Model<CategoryAttributes> {
   })
   declare id: string;
 
+  @ForeignKey(() => Category)
+  @Column({
+    type: DataType.UUID,
+    allowNull: true,
+  })
+  parentId: string;
+
   @Column({
     type: DataType.STRING(255),
     allowNull: false,
@@ -31,6 +45,15 @@ export class Category extends Model<CategoryAttributes> {
   })
   description: string;
 
+  @Column({
+    type: DataType.BOOLEAN,
+    defaultValue: true,
+  })
+  isActive: boolean;
+
   @HasMany(() => Product)
   products: Product[];
+
+  @HasMany(() => Category)
+  subcategories: Category[];
 }
