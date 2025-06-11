@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Product } from '../models/product.model';
 import { ProductsService } from '../services/products.service';
@@ -8,7 +8,7 @@ import { ProductDiscount } from '../models/product-discount.model';
 import { CollectionDiscount } from '../models/collection-discount.model';
 import { Category } from '../models/category.model';
 import { Collection } from '../models/collection.model';
-import { AuthModule } from '../modules/auth.module';
+import { AuthMiddleware } from 'src/auth/auth.middleware';
 
 @Module({
   imports: [
@@ -20,9 +20,12 @@ import { AuthModule } from '../modules/auth.module';
       Category,
       Collection,
     ]),
-    AuthModule,
   ],
   controllers: [ProductsController],
   providers: [ProductsService],
 })
-export class ProductsModule {}
+export class ProductsModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(AuthMiddleware).forRoutes('products', 'products/*');
+  }
+}

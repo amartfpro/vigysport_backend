@@ -3,10 +3,9 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { Collection } from '../models/collection.model';
 import { CollectionsService } from '../services/collection.service';
 import { CollectionsController } from '../controllers/collection.controller';
-import { AuthModule } from './auth.module';
 
 @Module({
-  imports: [SequelizeModule.forFeature([Collection]), AuthModule],
+  imports: [SequelizeModule.forFeature([Collection])],
   controllers: [CollectionsController],
   providers: [CollectionsService],
 })
