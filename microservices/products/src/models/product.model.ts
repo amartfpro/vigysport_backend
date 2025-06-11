@@ -8,7 +8,7 @@ import {
 } from 'sequelize-typescript';
 import { ProductImage } from './product-image.model';
 import { ProductDiscount } from './product-discount.model';
-import { CollectionDiscount } from './collection-dicount.model';
+import { CollectionDiscount } from './collection-discount.model';
 import { Category } from './category.model';
 import { Collection } from './collection.model';
 

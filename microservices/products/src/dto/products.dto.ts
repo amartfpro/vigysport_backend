@@ -4,6 +4,7 @@ import {
   IsOptional,
   IsString,
   IsPositive,
+  IsUUID,
 } from 'class-validator';
 
 export class CreateProductDto {
@@ -23,6 +24,23 @@ export class CreateProductDto {
   @IsNumber()
   @IsPositive()
   price: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @IsPositive()
+  stock: number;
+
+  @IsUUID()
+  @IsOptional()
+  categoryId?: string;
+
+  @IsUUID()
+  @IsOptional()
+  collectionId?: string;
+
+  @IsOptional()
+  @IsNumber()
+  discount?: number;
 }
 
 export class UpdateProductDto {
@@ -42,4 +60,20 @@ export class UpdateProductDto {
   @IsNumber()
   @IsPositive()
   price?: number;
+
+  @IsOptional()
+  @IsNumber()
+  stock?: number;
+
+  @IsOptional()
+  @IsUUID()
+  categoryId?: string;
+
+  @IsOptional()
+  @IsUUID()
+  collectionId?: string;
+
+  @IsOptional()
+  @IsNumber()
+  discount?: number;
 }
